@@ -238,3 +238,75 @@ resource "aws_vpc_security_group_egress_rule" "ecomm-web-sg-egress" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
+
+#api sg
+resource "aws_security_group" "ecomm-api-sg" {
+  name        = "ecomm-api-sg"
+  description = "Allow SSH and HTTP traffic"
+  vpc_id      = aws_vpc.ecomm-app.id
+
+  tags = {
+    Name = "ecomm-api-sg"
+  }
+}
+
+#adding ingress rules
+resource "aws_vpc_security_group_ingress_rule" "ecomm-api-sg-ingress-ssh" {
+  security_group_id = aws_security_group.ecomm-api-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ecomm-api-sg-ingress-http" {
+  security_group_id = aws_security_group.ecomm-api-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+#adding egress rule
+resource "aws_vpc_security_group_egress_rule" "ecomm-api-sg-egress" {
+  security_group_id = aws_security_group.ecomm-api-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}
+
+#database sg
+resource "aws_security_group" "ecomm-db-sg" {
+  name        = "ecomm-db-sg"
+  description = "Allow SSH and HTTP traffic"
+  vpc_id      = aws_vpc.ecomm-app.id
+
+  tags = {
+    Name = "ecomm-db-sg"
+  }
+}
+
+#adding ingress rules
+resource "aws_vpc_security_group_ingress_rule" "ecomm-db-sg-ingress-ssh" {
+  security_group_id = aws_security_group.ecomm-db-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ecomm-db-sg-ingress-http" {
+  security_group_id = aws_security_group.ecomm-db-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+#adding egress rules
+resource "aws_vpc_security_group_egress_rule" "ecomm-db-sg-egress" {
+  security_group_id = aws_security_group.ecomm-db-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}
+
+
