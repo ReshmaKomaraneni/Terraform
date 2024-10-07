@@ -84,4 +84,20 @@ tags = {
   }
 }
 
-  
+ #add subnets to the route tables(Associate Subnets to the Route Tables)
+ #public association
+ resource "aws_route_table_association" "ecomm-web-sn-asc" {
+  subnet_id      = aws_subnet.ecomm-web-sn.id
+  route_table_id = aws_route_table.ecomm-pub-rt.id
+} 
+
+resource "aws_route_table_association" "ecomm-api-sn-asc" {
+  subnet_id      = aws_subnet.ecomm-api-sn.id
+  route_table_id = aws_route_table.ecomm-pub-rt.id
+} 
+
+#private association
+resource "aws_route_table_association" "ecomm-db-sn-asc" {
+  gateway_id     = aws_internet_gateway.ecomm-db-sn.id
+  route_table_id = aws_route_table.ecomm-prv-rt.id
+}
