@@ -39,3 +39,12 @@ resource "aws_subnet" "ecomm-db-sn" {
     Name = "ecomm-database-subnet"
   }
 }
+
+# create internet gateway
+resource "aws_internet_gateway" "ecomm-igw" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+  tags = {
+    Name = "ecomm-igw"
+  }
+}
