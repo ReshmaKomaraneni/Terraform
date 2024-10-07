@@ -59,3 +59,29 @@ resource "aws_vpc" "ecomm1-app" {
 }
 
 resource "aws_internet_gateway" "ecomm1-app" {}
+
+#create route tables
+#public route table
+resource "aws_route_table" "ecomm-pub-rt" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.ecomm-igw.id
+  }
+
+  tags = {
+    Name = "ecomm-public-rt"
+  }
+}
+
+#private route table
+resource "aws_route_table" "ecomm-prv-rt" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+tags = {
+    Name = "ecomm-private-rt"
+  }
+}
+
+  
