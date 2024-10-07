@@ -202,3 +202,39 @@ resource "aws_network_acl_association" "ecomm-app-db-nacl-asc" {
   subnet_id      = aws_subnet.ecomm-db-sn.id
 }
 
+
+#create security groups
+#web sg
+resource "aws_security_group" "ecomm-web-sg" {
+  name        = "ecomm-web-sg"
+  description = "Allow SSH and HTTP traffic"
+  vpc_id      = aws_vpc.ecomm-app.id
+
+  tags = {
+    Name = "ecomm-web-sg"
+  }
+}
+
+#adding inbound rules for web sg(ingress)
+resource "aws_vpc_security_group_ingress_rule" "ecomm-web-sg-ingress-ssh" {
+  security_group_id = aws_security_group.ecomm-web-sg.id
+  cidr_ipv4         = "0.0.0./0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ecomm-web-sg-ingress-http" {
+  security_group_id = aws_security_group.ecomm-web-sg.id
+  cidr_ipv4         = "0.0.0./0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+#adding outbound rules for web sg(egress)
+resource "aws_vpc_security_group_egress_rule" "ecomm-web-sg-egress" {
+  security_group_id = aws_security_group.ecomm-web-sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+}
