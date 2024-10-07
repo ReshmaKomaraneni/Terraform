@@ -98,6 +98,6 @@ resource "aws_route_table_association" "ecomm-api-sn-asc" {
 
 #private association
 resource "aws_route_table_association" "ecomm-db-sn-asc" {
-  gateway_id     = aws_internet_gateway.ecomm-db-sn.id
+  subnet_id      = aws_subnet.ecomm-db-sn.id
   route_table_id = aws_route_table.ecomm-prv-rt.id
 }
