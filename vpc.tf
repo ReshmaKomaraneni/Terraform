@@ -48,3 +48,14 @@ resource "aws_internet_gateway" "ecomm-igw" {
     Name = "ecomm-igw"
   }
 }
+#attach internet gateway to vpc(Associate to vpc)
+resource "aws_internet_gateway_attachment" "ecomm-app" {
+  internet_gateway_id = aws_internet_gateway.ecomm-app.id
+  vpc_id              = aws_vpc.ecomm-app.id
+}
+
+resource "aws_vpc" "ecomm-app" {
+  cidr_block = "10.1.0.0/16"
+}
+
+resource "aws_internet_gateway" "ecomm-app" {}
