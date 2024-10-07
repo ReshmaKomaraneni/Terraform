@@ -12,6 +12,7 @@ resource "aws_vpc" "ecomm-app" {
 resource "aws_subnet" "ecomm-web-sn" {
   vpc_id     = aws_vpc.ecomm-app.id
   cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch="true"
 
   tags = {
     Name = "ecomm-web-subnet"
@@ -22,6 +23,7 @@ resource "aws_subnet" "ecomm-web-sn" {
 resource "aws_subnet" "ecomm-api-sn" {
   vpc_id     = aws_vpc.ecomm-app.id
   cidr_block = "10.0.2.0/25"
+  map_public_ip_on_launch="true"
 
   tags = {
     Name = "ecomm-api-subnet"
