@@ -101,3 +101,86 @@ resource "aws_route_table_association" "ecomm-db-sn-asc" {
   subnet_id      = aws_subnet.ecomm-db-sn.id
   route_table_id = aws_route_table.ecomm-prv-rt.id
 }
+
+#create NACL's
+#Web NACL
+resource "aws_network_acl" "ecomm-app-wb-nacl" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  tags = {
+    Name = "ecomm-app-web-nacl"
+  }
+}
+
+#Api NACL
+resource "aws_network_acl" "ecomm-app-api-nacl" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  tags = {
+    Name = "ecomm-app-api-nacl"
+  }
+}
+
+#Database NACL
+resource "aws_network_acl" "ecomm-app-db-nacl" {
+  vpc_id = aws_vpc.ecomm-app.id
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  tags = {
+    Name = "ecomm-app-database-nacl"
+  }
+}
+
