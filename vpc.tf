@@ -218,7 +218,7 @@ resource "aws_security_group" "ecomm-web-sg" {
 #adding inbound rules for web sg(ingress)
 resource "aws_vpc_security_group_ingress_rule" "ecomm-web-sg-ingress-ssh" {
   security_group_id = aws_security_group.ecomm-web-sg.id
-  cidr_ipv4         = "0.0.0./0"
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
@@ -226,7 +226,7 @@ resource "aws_vpc_security_group_ingress_rule" "ecomm-web-sg-ingress-ssh" {
 
 resource "aws_vpc_security_group_ingress_rule" "ecomm-web-sg-ingress-http" {
   security_group_id = aws_security_group.ecomm-web-sg.id
-  cidr_ipv4         = "0.0.0./0"
+  cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
