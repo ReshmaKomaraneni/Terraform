@@ -184,3 +184,21 @@ resource "aws_network_acl" "ecomm-app-db-nacl" {
   }
 }
 
+#Nacl web association
+resource "aws_network_acl_association" "ecomm-app-web-nacl-asc" {
+  network_acl_id = aws_network_acl.ecomm-app-wb-nacl.id
+  subnet_id      = aws_subnet.ecomm-web-sn.id
+}
+
+#Nacl api association
+resource "aws_network_acl_association" "ecomm-app-api-nacl-asc" {
+  network_acl_id = aws_network_acl.ecomm-app-api-nacl.id
+  subnet_id      = aws_subnet.ecomm-api-sn.id
+}
+
+#Nacl database association
+resource "aws_network_acl_association" "ecomm-app-db-nacl-asc" {
+  network_acl_id = aws_network_acl.ecomm-app-db-nacl.id
+  subnet_id      = aws_subnet.ecomm-db-sn.id
+}
+
