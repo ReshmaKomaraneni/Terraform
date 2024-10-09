@@ -5,7 +5,7 @@ resource "aws_instance" "ecomm-web-server"{
     subnet_id     = aws_subnet.ecomm-web-sn.id
     key_name      = "resh"
     vpc_security_group_ids = [aws_security_group.ecomm-web-sg.id]
-    user_data = file("setup.sh")
+    
       tags = {
       Name = "ecomm-web-server"
       }
